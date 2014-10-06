@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="GoogleServicesClient.View.ContactsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="310*"></ColumnDefinition>
+            <ColumnDefinition Width="108*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="41*"></RowDefinition>
+            <RowDefinition Height="32*"></RowDefinition>
+            <RowDefinition Height="37*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
+            <StackPanel.Children>
+                <!-- Displaying instructions to user here. -->
+                <TextBlock>Please log into your Google Account from the browser window,<LineBreak /> click on Accept, 
+                   enter the 60 character code into the box and click on Submit.
+                <LineBreak /></TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel.Children>
+                        <!-- Box to accept user's access code for accessing the service. -->
+                        <TextBox Width="367" Name="txtAccessCode" Text="{Binding SubmitBox, Mode=TwoWay}"></TextBox>
+                        <Button Content="Submit" Command="{Binding SubmitCommand}"></Button>
+                    </StackPanel.Children>
+                </StackPanel>
+                <Button Content="Refresh data" Command="{Binding RefreshCommand}"></Button>
+            </StackPanel.Children>
+        </StackPanel>
+        <!-- Here we display the actual service data to the user. -->
+        <ListBox ItemsSource="{Binding Path=Data, Mode=TwoWay}"
+             IsSynchronizedWithCurrentItem="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.RowSpan="2" 
+                 Margin="0,6,0,0" Grid.Row="1" Grid.ColumnSpan="2" />
+    </Grid>
+</UserControl>

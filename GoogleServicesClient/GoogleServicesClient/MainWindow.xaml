@@ -1,0 +1,43 @@
+﻿<Window x:Class="GoogleServicesClient.MainWindow"
+        x:Name="MainWindowType"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:view="clr-namespace:GoogleServicesClient.View"
+        xmlns:viewModel="clr-namespace:GoogleServicesClient.ViewModel"        
+        Title="Google Services"
+        DataContext="{Binding ViewModel, ElementName=MainWindowType}"
+        Height="390"
+        Width="420" ResizeMode="NoResize" WindowStyle="ToolWindow" SizeToContent="Manual" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <!-- Mapping Views with ViewModels -->
+        <DataTemplate DataType="{x:Type viewModel:DriveViewModel}">
+            <view:DriveView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ContactsViewModel}">
+            <view:ContactsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:DefaultViewModel}">
+            <view:DefaultView />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="226*"/>
+            <ColumnDefinition Width="82*" />
+        </Grid.ColumnDefinitions>
+        <!-- ContentPresenter to display different views as per the service selected. -->
+        <ContentPresenter Content="{Binding CurrentView}" Grid.ColumnSpan="2" Margin="0,0,0,25" Grid.RowSpan="2"></ContentPresenter>
+        <!-- Button to launch the Google Contacts view -->
+        <Button Name="ViewContacts" 
+                Grid.Row="2" Content="View Google Contacts"
+                Command="{Binding ViewServiceCommand}" Grid.ColumnSpan="2" CommandParameter="Contacts" Margin="0,18,0,0" />
+        <!-- Button to launch the Google Drive view -->
+        <Button Command="{Binding ViewServiceCommand}" Content="View Google Drive" Name="ViewDrive" Grid.Row="1" 
+                Grid.ColumnSpan="2" CommandParameter="Drive" Margin="0,31,0,36" Grid.RowSpan="2" />
+    </Grid>
+</Window>
